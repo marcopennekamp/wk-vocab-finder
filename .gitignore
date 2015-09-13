@@ -1,3 +1,10 @@
+# General
+log.txt
+
+# Files that could cause copyright issues.
+data/wk.html
+data/core6k.csv
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
