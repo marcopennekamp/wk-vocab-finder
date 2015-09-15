@@ -1,31 +1,11 @@
-max_level = 4
+from util import *
 
-def read_level(level):
-    kanji_list = []
-    with open('kanji/level' + str(level) + '.kanji') as f:
-        kanji_list = f.readlines()
-    # Strip all newlines, convert to unicode and put into set.
-    return {kanji.strip('\n') for kanji in kanji_list}
+max_level = 60
 
-# Read all levels.
-kanji_sets = []
-for level in range(0, max_level + 1):
-    last_set = (kanji_sets[level - 1] if level > 0 else set())
-    current_set = read_level(level)
-    kanji_sets.append(last_set | current_set)
+kanji_sets = read_all_levels(max_level)
 
 # Read vocabulary.
-vocab_list = 0
-with open('data/6k.vocab') as f:
-    vocab_list = f.readlines()
-    vocab_list = [vocab.strip('\n') for vocab in vocab_list]
-
-def testVocab(vocab, kanji_set):
-    for c in vocab:
-        if c not in kanji_set:
-            # print("Failed at: " + c)
-            return False
-    return True
+vocab_list = read_word_list('data/6k.vocab')
 
 # Generate list of all vocabulary for all levels.
 cont_vocab_lists = []
@@ -33,12 +13,9 @@ for i in range(0, max_level + 1):
     cont_vocab_lists.append([])
 
 for vocab in vocab_list:
-    level = 0
-    for kanji_set in kanji_sets:
-        if testVocab(vocab, kanji_set):
-            cont_vocab_lists[level].append(vocab)
-            break
-        level = level + 1
+    level = get_word_level(vocab, kanji_sets)
+    if level >= 0:
+        cont_vocab_lists[level].append(vocab)
 
 # Write the lists to files.
 level = 0

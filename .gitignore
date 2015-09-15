@@ -1,5 +1,7 @@
 # General
 log.txt
+/leveled/**/*
+/result/**/*
 
 # Files that could cause copyright issues.
 data/wk.html
