@@ -7,7 +7,7 @@ mrk() {
 rm -rf leveled
 mkdir leveled
 
-for c in `seq 1 2`; do
+for c in `seq 1 6`; do
     for s in `seq 1 10`; do
         mrk $c-$s
     done
