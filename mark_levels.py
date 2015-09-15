@@ -13,6 +13,9 @@ for vocab in vocab_list:
     # Also sets the level to -1 when the vocab can't be represented.
     leveled_vocab_list.append((vocab, get_word_level(vocab, kanji_sets)))
 
+# Sort by level.
+leveled_vocab_list = sorted(leveled_vocab_list, key = lambda vocab: vocab[1])
+
 # Write the list to the file.
 with open('leveled/' + file_name + '.txt', 'w+') as f:
     for vocab in leveled_vocab_list:
